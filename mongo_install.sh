@@ -14,8 +14,8 @@ N='\033[0m'
 
 if [ "$ID" -ne 0 ]; then
 
-    echo "ERROR :: Your Not a RooT User : Your a ${WHO} : Please switch to ${RED}Root${N} User"
+    echo -e "ERROR :: Your Not a RooT User : Your a ${YELLOW}${WHO} user : Please switch to ${RED}Root${N} User"
 else
 
-    echo "SUCCESS :: Your Now ${WHO} User So Script Will Exceute Shortly: ${GREEN}PLEASE WAIT${N}"
+    echo -e "SUCCESS :: Your Now ${YELLOW}${WHO}User So Script Will Exceute Shortly: ${GREEN}PLEASE WAIT${N}"
 fi      
