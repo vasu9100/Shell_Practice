@@ -28,18 +28,30 @@ else
     echo -e "${GREEN} SUCCESS:: ${N} You are now ${YELLOW}${WHO}${N} User. The script will execute shortly: ${GREEN}PLEASE WAIT ${N}"
 fi
 
-mv /home/centos/Shell_Practice/mongo.repo /etc/yum.repos.d
-validate $? "Mongo Repo File Transfer"
+
+
+find /etc/yum.repos.d/ -type f -name "mongo.repo"
+
+if [ $? -ne 0 ]; then
+
+    cp /home/centos/Shell_Practice/mongo.repo /etc/yum.repos.d
+    validate $? "Mongo Repo File Transfer"
+else
+    echo -e " $2.... ${YELLOW} Skipping " 
+ fi   
+
 
 echo -e "${YELLOW}Shell is Verifying MongoDB Installation on Server."
 
 dnf list installed | grep -q mongodb-org
-validate $? "Mongo DB is not installed"
 
-echo -e "${YELLOW}Shell is Installing MongoDB."
-
-dnf install mongodb-org -y 
-validate $? "MongoDB-ORG Installation"
+if [ $? -ne 0 ]; then
+    
+    echo "Mongo Db Already Installed no Need to Install"
+else
+    dnf install mongodb-org -y 
+    validate $? "MongoDB-ORG Installation" 
+ fi 
 
 systemctl enable mongod
 validate $? "MongoDB Enabled"
