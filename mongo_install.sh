@@ -1,60 +1,83 @@
 #!/bin/bash
-# Author: Srinivas Gonepudi
-# Created Date: 14-12-2023
-# Description: Installing MongoDB For RoboShop Application
-# Modified date: 14-12-2023
+
+# Author :: Srinivas Gonepudi 
+# Created Date :: 15-12-2023
+# Description ::  Mongo-Db Installation Process
+
+# Starting Shell Script
 
 ID=$(id -u)
 WHO=$(whoami)
+DATE=$(date)
+LOGFILE="/tmp/$0-${DATE}.log"
+REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
+REPO_DEST="/etc/yum.repos.d/"
+MONGO_INSTALLED=$(dnf installed list | grep -q "mongodb-org" && echo "true" || echo "false")
+MONGO_INSTALLING=$(dnf install mongodb-org -y)
+MONGO_CONF=$(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false")
+SED=$(sed -i 's/127.0.0.1/0.0.0.0/')
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-N='\033[0m'
+if [ ${ID} -ne 0 ]; then
 
-validate() {
-    if [ "$1" -ne 0 ]; then
-        echo -e " $2.... ${RED} FAILED"
-        exit 1
-    else
-        echo -e " $2.... ${GREEN} SUCCESS"
-    fi
-}
-
-if [ "$ID" -ne 0 ]; then
-    echo -e "${RED} ERROR:: ${N} You are not a Root User : You are a ${YELLOW}${WHO}${N} user : Please switch to ${RED}Root${N} User"
+    echo " :: YOUR USING ${WHO} USER SO YOU CANNOT EXECUTE THIS SCRIPT:: "
     exit 1
 else
-    echo -e "${GREEN} SUCCESS:: ${N} You are now ${YELLOW}${WHO}${N} User. The script will execute shortly: ${GREEN}PLEASE WAIT ${N}"
+
+    echo " :: YOUR ARE A ${WHO} USER YOU CAN EXCEUTE THIS SCRIPT:: "
+
+fi
+
+echo " SCRIPT EXCECUTION WILL START NOW "
+
+if [ -e "${REPO_DEST}mongo.repo" ]; then
+
+    echo " FILE ALREADY EXISTING IN ${REPO_DEST} SO, SKIPPING COPYING ::"
+
+else
+
+    cp "${REPO_DEST}" "${REPO_DEST}"
+
+    echo "  IT IS NEW FILE IN ${REPO_DEST} SO, COPYING IN DESTINATION PATH i.e ${REPO_DEST}  ::"
 fi
 
 
+if [ "${MONGO_INSTALLED}" == "true" ]; then
 
-find /etc/yum.repos.d/ -type f -name "mongo.repo"
+    echo "MONGO DB INSTALLED ALREADY:: SO SKIPPING INSTALLATION PART"
 
-if [ $? -ne 0 ]; then
-
-    cp /home/centos/Shell_Practice/mongo.repo /etc/yum.repos.d
-    validate $? "Mongo Repo File Transfer"
 else
-    echo -e " $2.... ${YELLOW} Skipping " 
- fi   
+
+    echo ":: MONGO-DB IS INSTALLING ::"
+    ${MONGO_INSTALLING}
+    echo "::  MONGO-DB IS INSTALLED ::"
+    systemctl enable mongod
+    echo ":: MONGO-DB IS ENABLED ::"
+    systemctl start mongod
+    echo ":: MONGO-DB IS STARTED ::"
+fi    
 
 
-echo -e "${YELLOW}Shell is Verifying MongoDB Installation on Server."
+if [ "${MONGO_CONF}" == "true" ]; then
 
-dnf list installed | grep -q mongodb-org
-
-if [ $? -ne 0 ]; then
+    echo " 127.0.0.1 IS FOUND:: SO, IT IS REPLACING with 0.0.0.0  "
+    ${SED}
+    if [ $? -eq 0 ]; then
+        echo "SED command executed successfully."
+        systemctl restart mongod
+    else
+        echo "Error: SED command failed."
+    fi
     
-    echo "Mongo Db Already Installed no Need to Install"
+
 else
-    dnf install mongodb-org -y 
-    validate $? "MongoDB-ORG Installation" 
- fi 
 
-systemctl enable mongod
-validate $? "MongoDB Enabled"
+    echo " 127.0.0.1 IS NOT FOUND:: SO,  REPLACING with 0.0.0.0 IS NOT POSSIBLE "
+fi  
 
-systemctl start mongod
-validate $? "MongoDB Started"
+
+
+
+
+
+
+
