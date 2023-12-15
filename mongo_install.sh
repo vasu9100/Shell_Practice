@@ -35,7 +35,7 @@ if [ -e "${REPO_DEST}mongo.repo" ]; then
 
 else
 
-    cp "${REPO_DEST}" "${REPO_DEST}"
+    cp "${REPO_SOURCE}" "${REPO_DEST}"
 
     echo "  IT IS NEW FILE IN ${REPO_DEST} SO, COPYING IN DESTINATION PATH i.e ${REPO_DEST}  ::"
 fi
@@ -49,11 +49,11 @@ else
 
     echo ":: MONGO-DB IS INSTALLING ::"
     ${MONGO_INSTALLING}
-    echo "::  MONGO-DB IS INSTALLED ::"
+    echo "$?::  MONGO-DB IS INSTALLED ::"
     systemctl enable mongod
-    echo ":: MONGO-DB IS ENABLED ::"
+    echo "$?:: MONGO-DB IS ENABLED ::"
     systemctl start mongod
-    echo ":: MONGO-DB IS STARTED ::"
+    echo "$?:: MONGO-DB IS STARTED ::"
 fi    
 
 
