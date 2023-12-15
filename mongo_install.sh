@@ -10,7 +10,7 @@ ID=$(id -u)
 WHO=$(whoami)
 REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
 REPO_DEST="/etc/yum.repos.d/"
-MONGO_INSTALLED=$(dnf install list | grep -q "mongodb-org" && echo "true" || echo "false")
+MONGO_INSTALLED=MONGO_INSTALLED=$(dnf list installed | grep "mongodb-org" && echo "true" || echo "false")
 MONGO_INSTALLING=$(dnf install mongodb-org -y)
 MONGO_CONF=$(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false")
 SED=$(sed -i 's/127.0.0.1/0.0.0.0/')
