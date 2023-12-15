@@ -12,12 +12,12 @@ DATE=$(date)
 LOGFILE="/tmp/$0-${DATE}.log"
 REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
 REPO_DEST="/etc/yum.repos.d/"
-MONGO_INSTALLED=$(dnf installed list | grep -q "mongodb-org" && echo "true" || echo "false")
+MONGO_INSTALLED=$(dnf install list | grep -q "mongodb-org" && echo "true" || echo "false")
 MONGO_INSTALLING=$(dnf install mongodb-org -y)
 MONGO_CONF=$(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false")
 SED=$(sed -i 's/127.0.0.1/0.0.0.0/')
 
-if [ ${ID} -ne 0 ]; then
+if [ $ID -ne 0 ]; then
 
     echo " :: YOUR USING ${WHO} USER SO YOU CANNOT EXECUTE THIS SCRIPT:: "
     exit 1
