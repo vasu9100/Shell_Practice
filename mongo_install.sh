@@ -8,8 +8,6 @@
 
 ID=$(id -u)
 WHO=$(whoami)
-DATE=$(date)
-LOGFILE="/tmp/$0-${DATE}.log"
 REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
 REPO_DEST="/etc/yum.repos.d/"
 MONGO_INSTALLED=$(dnf install list | grep -q "mongodb-org" && echo "true" || echo "false")
