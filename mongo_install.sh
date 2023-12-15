@@ -72,12 +72,4 @@ if [ "${MONGO_CONF}" == "true" ]; then
 else
 
     echo " 127.0.0.1 IS NOT FOUND:: SO,  REPLACING with 0.0.0.0 IS NOT POSSIBLE "
-fi  
-
-
-
-
-
-
-
-
+fi
