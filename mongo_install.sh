@@ -13,7 +13,7 @@ REPO_DEST="/etc/yum.repos.d/"
 MONGO_INSTALLED=$(rpm -qa | grep "mongodb-org" && echo "true" || echo "false")
 MONGO_INSTALLING="dnf install mongodb-org -y"
 MONGO_CONF=$(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false")
-SED=$(sed -i 's/127.0.0.1/0.0.0.0/')
+SED=$(sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf)
 
 # Function to print messages with colors
 print_message() {
