@@ -6,72 +6,24 @@
 
 # Starting Shell Script
 
+validate() {
+    [[ $1 -eq 0 ]] || { echo "Error: $2"; exit 1; }
+}
+
 ID=$(id -u)
 WHO=$(whoami)
 REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
 REPO_DEST="/etc/yum.repos.d/"
 MONGO_INSTALLED=$(rpm -qa | grep "mongodb-org" && echo "true" || echo "false")
 MONGO_INSTALLING="dnf install mongodb-org -y"
-MONGO_CONF=$(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false")
-SED=$(sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf)
+MONGO_CONF="sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf"
 
-# Function to print messages with colors
-print_message() {
-    local color="$1"
-    local message="$2"
-    echo -e "\e[${color}m${message}\e[0m"
-}
+validate $ID ":: YOU ARE USING ${WHO} USER SO YOU CANNOT EXECUTE THIS SCRIPT::"
+echo ":: YOU ARE A ${WHO} USER. YOU CAN EXECUTE THIS SCRIPT::"
+echo "SCRIPT EXECUTION WILL START NOW"
 
-# ---- ---- Checking User ---- ----
-if [ $ID -ne 0 ]; then
-    print_message "1;31" " :: YOUR ARE USING ${WHO} USER. YOU CANNOT EXECUTE THIS SCRIPT:: "
-    exit 1
-else
-    print_message "1;36" " :: YOU ARE A ${WHO} USER. YOU CAN EXECUTE THIS SCRIPT:: "
-fi
+[[ -e "${REPO_DEST}mongo.repo" ]] && echo "FILE ALREADY EXISTS IN ${REPO_DEST} SO, SKIPPING COPYING ::" || { cp "${REPO_SOURCE}" "${REPO_DEST}"; echo "IT IS A NEW FILE IN ${REPO_DEST} SO, COPYING TO DESTINATION PATH i.e ${REPO_DEST}  ::"; }
 
-# ---- ---- Starting Script ---- ----
-print_message "1;36" " SCRIPT EXECUTION WILL START NOW "
+[[ "${MONGO_INSTALLED}" == "true" ]] && echo "MONGO DB INSTALLED ALREADY:: SO SKIPPING INSTALLATION PART" || { echo ":: MONGO-DB IS INSTALLING ::"; ${MONGO_INSTALLING}; validate $? ":: MONGO-DB INSTALLATION FAILED ::"; echo "$?:: MONGO-DB IS INSTALLED ::"; systemctl enable mongod; validate $? ":: MONGO-DB ENABLING FAILED ::"; systemctl start mongod; validate $? ":: MONGO-DB STARTING FAILED ::"; }
 
-# ---- ---- Checking Repo File ---- ----
-if [ -e "${REPO_DEST}mongo.repo" ]; then
-    print_message "1;33" " FILE ALREADY EXISTS IN ${REPO_DEST}. SKIPPING COPYING ::"
-else
-    cp "${REPO_SOURCE}" "${REPO_DEST}"
-    print_message "1;32" " IT IS A NEW FILE IN ${REPO_DEST}. COPYING TO DESTINATION PATH: ${REPO_DEST}  ::"
-fi
-
-# ---- ---- Checking MongoDB Installation ---- ----
-if [ "${MONGO_INSTALLED}" == "true" ]; then
-    print_message "1;32" " MONGO DB IS ALREADY INSTALLED. SKIPPING INSTALLATION PART"
-else
-    # ---- ---- Installing MongoDB ---- ----
-    print_message "1;36" ":: MONGO-DB IS INSTALLING ::"
-    ${MONGO_INSTALLING}
-    print_message "$?" "$?:: MONGO-DB IS INSTALLED ::"
-
-    # ---- ---- Enabling MongoDB ---- ----
-    systemctl enable mongod
-    print_message "$?" "$?:: MONGO-DB IS ENABLED ::"
-
-    # ---- ---- Starting MongoDB ---- ----
-    systemctl start mongod
-    print_message "$?" "$?:: MONGO-DB IS STARTED ::"
-fi    
-
-# ---- ---- Modifying MongoDB Configuration ---- ----
-if [ "${MONGO_CONF}" == "true" ]; then
-    # ---- ---- Modifying MongoDB Configuration File ---- ----
-    print_message "1;36" " 127.0.0.1 IS FOUND. REPLACING WITH 0.0.0.0  "
-    ${SED}
-    if [ $? -eq 0 ]; then
-        print_message "1;32" "SED COMMAND EXECUTED SUCCESSFULLY."
-
-        # ---- ---- Restarting MongoDB ---- ----
-        systemctl restart mongod
-    else
-        print_message "1;31" "ERROR: SED COMMAND FAILED."
-    fi
-else
-    print_message "1;31" " 127.0.0.1 IS NOT FOUND. REPLACING WITH 0.0.0.0 IS NOT POSSIBLE "
-fi
+[[ $(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false") == "true" ]] && { echo "127.0.0.1 IS FOUND:: REPLACING WITH 0.0.0.0"; ${MONGO_CONF}; validate $? "SED command failed."; echo "SED command executed successfully."; systemctl restart mongod; } || echo "127.0.0.1 IS NOT FOUND:: REPLACING WITH 0.0.0.0 IS NOT POSSIBLE"
