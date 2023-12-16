@@ -65,7 +65,7 @@ validate $? "MONGO-DB-IS-STARTING"
 if [ -e /etc/mongod.conf ]; then
 
     echo "Mongo.conf FILE IS THERE DOING BININD OPERATION"
-    sed -i 's/127.0.0.1/0.0.0.0/g'
+    sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
     validate $?  "BINDING OPERATION"
     netstat -lntp
     validate $? "VERIFY PORTS"
