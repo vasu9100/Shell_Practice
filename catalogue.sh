@@ -34,7 +34,7 @@ else
 
 fi
 
-which node
+which node &>> $LOG_FILE
 validate $? "CHECKINGG NODE JS 18 INSTALLED OR NOT"
 
 if [ $? -eq 0 ]; then
