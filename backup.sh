@@ -7,7 +7,7 @@ WORKING_DIR=$(pwd)
 RED="\e[31m"
 GREEN="\e[32m"
 ENDCOLOR="\e[0m"
-NGINX_STATUS=$(rpm -q nginx)
+NGINX_STATUS=$(dnf list installed | grep -q "nginx")
 
 validate(){
     
@@ -23,16 +23,16 @@ validate(){
 
 if [ $ID -ne 0 ]; then
 
-    echo -e "${RED} PERMISSION DENIED ${ENDCOLOR} BECAUSE OF ${RED} ${WHO} ${ENDCOLOR} AND YOUR PRESENT WORKING DIRECTORY IS ${RED} ${WORKING_DIR}"
+    echo -e "${RED}PERMISSION DENIED ${ENDCOLOR} BECAUSE OF ${RED} ${WHO} ${ENDCOLOR} AND YOUR PRESENT WORKING DIRECTORY IS ${RED} ${WORKING_DIR}"
     exit 1
 
 else
 
-    echo -e  "${GREEN} PREMSSION GRANTED ${ENDCOLOR} BECA USE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
+    echo -e  "${GREEN}PREMSSION GRANTED ${ENDCOLOR} BECAUSE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
 
 fi
 
-if [ -n ${NGINX_STATUS} ]; then
+if [ ${NGINX_STATUS} -eq 0 ]; then
     echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
     exit 1
 else
