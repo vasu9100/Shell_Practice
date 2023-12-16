@@ -51,15 +51,18 @@ validate $? "NGINX START"
 find /tmp/ -name "web.zip"
 validate $? "Web.zip Verification"
 
-if [  $? -ne 0 ]; then
+if [ -e /tmp/web.zip ]; then
 
     curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
     validate $? "DOWNLOADED FRONT END CODE"
-    echo "Changing directory to /usr/share/nginx/html"
-    cd /usr/share/nginx/html
-    validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
-    rm -f *
-    validate $? "Removed"
+fi
+
+echo "Changing directory to /usr/share/nginx/html"
+cd /usr/share/nginx/html
+validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
+rm -f *
+validate $? "Removed"
+if [ -e /tmp/web.zip ]; then
     unzip /tmp/web.zip
     validate $? "UNZIP"
 else    
