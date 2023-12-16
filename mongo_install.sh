@@ -37,7 +37,7 @@ fi
 if [ -e /home/centos/mongo.repo ]; then
 
     echo "Mongo.repo Is existed"
-    cp -r /home/centos/mongo.repo /etc/yum.repo.d/
+    cp -r /home/centos/mongo.repo /etc/yum.repos.d/
     validate $? "mongo.repo copied"
 else
 
