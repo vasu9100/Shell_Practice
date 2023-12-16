@@ -65,7 +65,7 @@ fi
 
 
 
-if [ -e /tmp/catalogue.zip -eq 0 ]; then
+if [ -e /tmp/catalogue.zip ]; then
 
     echo " FRONT END ALREADY DOWNLOADED,SO SKIPPING DOWNLOADING PART"
 else
