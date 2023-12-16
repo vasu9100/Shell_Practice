@@ -95,8 +95,6 @@ if [ -e /tmp/catalogue.zip ]; then
     echo "UNZIPPING PART STARTED"
     unzip -o /tmp/catalogue.zip
     validate $? "UNZIP"
-    npm install
-    validate $? "DOWNLOADED REQUIRED LIBRIES"
 else
 
     curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
@@ -104,7 +102,12 @@ else
     echo "UNZIPPING PART STARTED"
     unzip -o /tmp/catalogue.zip
     validate $? "UNZIP"
-    npm install
-    validate $? "DOWNLOADED REQUIRED LIBRIES"
+    
 
+fi
+if [ -d "node_modules" ]; then
+    echo "Node modules already installed. Skipping npm install."
+else
+    echo "Installing node modules..."
+    npm install
 fi
