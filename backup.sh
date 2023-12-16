@@ -54,3 +54,7 @@ validate $? "DOWNLOADED FRONT END CODE"
 echo "Changing directory to /usr/share/nginx/html"
 cd /usr/share/nginx/html
 validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
+
+echo "Unzipping"
+unzip /tmp/web.zip
+validate $? "Content Unzipped /usr/share/nginx/html"
