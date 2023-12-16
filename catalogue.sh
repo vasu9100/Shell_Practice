@@ -72,4 +72,18 @@ else
 
     curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
     validate $? "FRONT END DOWNLOADING"
-fi    
+fi
+
+mkdir /app
+
+if [ $? -ne 0 ]; then
+
+    echo "folder already existed"
+else
+
+    echo "SWITCHING APP FOLDER"
+    cd /app
+    validate $? "SWITCHED INTO APP FOLDER"
+
+fi        
+
