@@ -60,7 +60,7 @@ fi
 echo "Changing directory to /usr/share/nginx/html"
 cd /usr/share/nginx/html
 validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
-rm -f *
+rm -rf *
 validate $? "Removed"
 if [ -e /tmp/web.zip ]; then
     unzip /tmp/web.zip
