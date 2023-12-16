@@ -58,11 +58,17 @@ if [ ! -e /tmp/web.zip ]; then
 fi
 
 echo "Changing directory to /usr/share/nginx/html"
+
 cd /usr/share/nginx/html
+
 validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
+
 rm -rf *.html *.css *.js
+
 validate $? "Removed"
+
 if [ -e /tmp/web.zip ]; then
+    echo "web.zp Already existed so unzipping"
     unzip -o /tmp/web.zip
     validate $? "UNZIP"
 else    
