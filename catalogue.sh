@@ -59,5 +59,17 @@ if [ $? -eq 0 ]; then
 else
     echo "ROBO-SHOP-USER IS CREATING"
     useradd roboshop
+    validate $? "ROBO-SHOP-USER-CREATING"
     
+fi   
+
+grep -r "web.zip" /tmp
+
+if [ $? -eq 0 ]; then
+
+    echo " FRONT END ALREADY DOWNLOADED,SO SKIPPING DOWNLOADING PART"
+else
+
+    curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+    validate $? "FRONT END DOWNLOADING"
 fi    
