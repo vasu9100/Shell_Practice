@@ -3,7 +3,7 @@
 ID=$(id -u)
 WHO=$(whoami)
 WORKING_DIR=$(pwd)
-DATE=$(date)
+DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 LOG_FILE="/tmp/$0-${DATE}.log"
 
 RED="\e[31m"
