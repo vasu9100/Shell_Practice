@@ -36,7 +36,7 @@ fi
 
 if [ -e /home/centos/mongo.repo ]; then
 
-    echo "Mongo.repo Is existed"
+    echo "Mongo.repo FILE  Is existed"
     cp -r /home/centos/mongo.repo /etc/yum.repos.d/
     validate $? "mongo.repo copied"
 else
@@ -61,3 +61,16 @@ validate $? "MONGO-DB-IS-ENABLING"
 
 systemctl start mongod
 validate $? "MONGO-DB-IS-STARTING"
+
+if [ -e /etc/mongod.conf ]; then
+
+    echo "Mongo.conf FILE IS THERE DOING BININD OPERATION"
+    sed -i 's/127.0.0.1/0.0.0.0/g'
+    validate $?  "BINDING OPERATION"
+    netstat -lntp
+    validate $? "VERIFY PORTS"
+else
+
+    echo "FILE NOT EXISTED PLEASE RECHECK"
+
+fi        
