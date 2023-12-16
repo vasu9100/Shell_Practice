@@ -68,5 +68,15 @@ if [ -e /tmp/web.zip ]; then
 else    
 
    echo "web.zip file already existed so no need to install"
-fi    
+fi
+
+cd /home/centos/Shell_Practice
+validate $? "CHANGING DIRETORY TO ::"/home/centos/Shell_Practice::"
+
+cp roboshop.conf /etc/nginx/default.d/
+validate $? "Copied roboshop.conf"
+
+systemctl restart nginx
+validate $? "NGINX RESTARTED" 
+
 
