@@ -71,7 +71,7 @@ else
 fi
 
 cd /home/centos/Shell_Practice
-validate $? "CHANGING DIRETORY TO ::"/home/centos/Shell_Practice::"
+validate $? "CHANGING DIRETORY TO ::/home/centos/Shell_Practice::"
 
 cp roboshop.conf /etc/nginx/default.d/
 validate $? "Copied roboshop.conf"
