@@ -85,13 +85,6 @@ if [ -e /home/centos/Shell_Practice/roboshop.conf ]; then
     echo "Started copying into destination"
     cp -f roboshop.conf /etc/nginx/default.d/
     validate $? "Copied roboshop.conf"
-fi
-
-else
-
-    echo "File is not there"
-
-fi
- 
+fi 
 systemctl restart nginx
 validate $? "NGINX RESTARTED"
