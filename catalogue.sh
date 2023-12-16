@@ -34,9 +34,19 @@ else
 
 fi
 
-dnf module disable nodejs -y
-validate $? "NODE-JS DISABLED"
-dnf module enable nodejs:18 -y
-validate $? "NODEJS-18 VERSION ENABLED"
-dnf install nodejs -y
-validate $? "NODEJS-18 VERSION INSTALLATION"
+which node
+validate $? "CHECKINGG NODE JS 18 INSTALLED OR NOT"
+
+if [ $? -eq 0 ]; then
+
+    echo  "NODE-JS ALREDAY INSTALLED, SO SKIPPING INSTALLATION"
+
+else    
+    echo "NODE-JS NOT INSTALLED SO STARTED INSTALLATION"
+    dnf module disable nodejs -y
+    validate $? "NODE-JS DISABLED"
+    dnf module enable nodejs:18 -y
+    validate $? "NODEJS-18 VERSION ENABLED"
+    dnf install nodejs -y
+    validate $? "NODEJS-18 VERSION INSTALLATION"
+fi    
