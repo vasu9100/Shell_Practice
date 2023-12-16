@@ -62,7 +62,7 @@ cd /usr/share/nginx/html
 validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
 rm -f *
 validate $? "Removed"
-if [ ! -e /tmp/web.zip ]; then
+if [ -e /tmp/web.zip ]; then
     unzip /tmp/web.zip
     validate $? "UNZIP"
 else    
