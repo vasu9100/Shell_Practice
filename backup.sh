@@ -3,6 +3,8 @@
 ID=$(id -u)
 WHO=$(whoami)
 WORKING_DIR=$(pwd)
+DATE=$(date)
+LOG_FILE="/tmp/$0-${DATE}.log"
 
 RED="\e[31m"
 GREEN="\e[32m"
@@ -32,7 +34,7 @@ else
 
 fi
 
-dnf list installed | grep -q "nginx"
+dnf list installed | grep -q "nginx" 
 validate $? "CHECKING NGINX STATUS"
 
 if [ $? -eq 0 ]; then
@@ -69,7 +71,7 @@ validate $? "Removed"
 
 if [ -e /tmp/web.zip ]; then
     echo "web.zp Already existed so unzipping"
-    unzip -o /tmp/web.zip
+    unzip -o /tmp/web.zip &>>${LOG_FILE}
     validate $? "UNZIP"
 else    
 
