@@ -48,8 +48,8 @@ validate $? "NGINX ENABLED"
 systemctl start nginx
 validate $? "NGINX START"
 
-find /tmp/ -name "web.zip"
-validate $? "Web.zip Verification"
+#find /tmp/ -name "web.zip"
+#validate $? "Web.zip Verification"
 
 if [ ! -e /tmp/web.zip ]; then
 
