@@ -52,13 +52,12 @@ else
 fi
 
 id roboshop &>> ${LOG_FILE}
-validate $? "Roboshop User Verification"
 
 if [ $? -eq 0 ]; then
 
+    echo "User already Existed so Skipping User creation"
+else
     echo "ROBO-SHOP-USER IS CREATING"
     useradd roboshop
-else
-
-    echo "User already Existed so Skipping User creation"
+    
 fi    
