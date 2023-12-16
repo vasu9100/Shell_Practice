@@ -16,7 +16,7 @@ validate(){
         echo -e "$2 ....${RED} FAILED"
     else
 
-        echo -e "$2 ....${GREEN} SUCCESS"
+        echo -e "$2 ....${GREEN} SUCCES"
 
     fi    
 }
@@ -34,9 +34,10 @@ fi
 
 if [ ${NGINX_STATUS} -eq 0 ]; then
     echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
+    exit 1
 else
     yum install nginx -y
-    validate $? "NGINX IS NOT AVAILABLE, SO INSTALLING NGINX"
+    validate $? "NGINX INSTALLATION"
 fi
    
 
