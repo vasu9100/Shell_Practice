@@ -113,4 +113,14 @@ else
     echo " installing libries"
     npm install
     validate $? "Libries installation"
-fi    
+fi
+
+if [ -e /home/centos/catalogue.service ];then
+
+    echo "catalogue File Existed"
+    cp -r /home/centos/catalogue.service /etc/systemd/system/
+    validate $? "COPIED SUCCESSFULLY"
+else
+
+    echo "FILE NOT EXISTED"
+fi
