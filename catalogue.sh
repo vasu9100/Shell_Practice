@@ -133,3 +133,27 @@ validate $? "ENABLED CATALOGUE"
 
 systemctl start catalogue
 validate $? "STARTED CATALOGUE"
+
+if [ -e /home/centos/Shell_Practice/mongo.repo ];then
+
+    echo "catalogue File Existed"
+    cp -r /home/centos//Shell_Practice/mongo.repo /etc/yum.repos.d/
+    validate $? "COPIED SUCCESSFULLY"
+else
+
+    echo "FILE NOT EXISTED"
+fi
+
+dnf list installed | grep -q "mongodb-org"
+if [ $? -eq 0 ]; then
+
+    echo "Mongo-DB Is Already Installed so Skipping Installation"
+
+else
+
+ echo "Mongo Db Is Not Installed SO Installing"
+ dnf install mongodb-org-shell -y
+ validate $? "MONGO-DB-SHELL-IS- INSTALLING" 
+fi
+
+mongo --host mongo.gonepudirobot.online </app/schema/catalogue.js
