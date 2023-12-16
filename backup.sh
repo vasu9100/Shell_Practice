@@ -32,15 +32,11 @@ else
 
 fi
 
-if [ ${NGINX_STATUS} -ne 0 ]; then
-
-    yum install nginx -y
-
-    validate $? "NGIX IS NOT AVAILBLE SO INSTALLING NGINX"
-
+if [ ${NGINX_STATUS} -eq 0 ]; then
+    echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
 else
-
-    echo "NGINX ALREADY INSTALLED SO SKIPPING INSTALLATION"
-
-fi   
+    yum install nginx -y
+    validate $? "NGINX IS NOT AVAILABLE, SO INSTALLING NGINX"
+fi
+   
 
