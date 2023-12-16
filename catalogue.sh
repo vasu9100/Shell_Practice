@@ -37,4 +37,6 @@ fi
 dnf module disable nodejs -y
 validate $? "NODE-JS DISABLED"
 dnf module enable nodejs:18 -y
+validate $? "NODEJS-18 VERSION ENABLED"
+dnf install nodejs -y
 validate $? "NODEJS-18 VERSION INSTALLATION"
