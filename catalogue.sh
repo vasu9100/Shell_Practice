@@ -56,9 +56,9 @@ validate $? "Roboshop User Verification"
 
 if [ $? -eq 0 ]; then
 
-    echo "ROBO-SHOP-USER ALREADY EXISTED, SO SKIPPING USER CREATION"
-else
-
     echo "ROBO-SHOP-USER IS CREATING"
     useradd roboshop
+else
+
+    echo "User already Existed so Skipping User creation"
 fi    
