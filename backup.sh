@@ -47,3 +47,9 @@ validate $? "NGINX ENABLED"
 
 systemctl start nginx
 validate $? "NGINX START"
+
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
+validate $? "DOWLOADED FRONT END CODE"
+
+cd /usr/share/nginx/html
+validate $? ${WORKING_DIR}
