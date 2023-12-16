@@ -77,6 +77,4 @@ cp roboshop.conf /etc/nginx/default.d/
 validate $? "Copied roboshop.conf"
 
 systemctl restart nginx
-validate $? "NGINX RESTARTED" 
-
-
+validate $? "NGINX RESTARTED"
