@@ -1,29 +1,46 @@
 #!/bin/bash
 
-# Author :: Srinivas Gonepudi 
-# Created Date :: 15-12-2023
-# Description ::  Mongo-Db Installation Process
-
-# Starting Shell Script
-
-validate() {
-    [[ $1 -eq 0 ]] || { echo "Error: $2"; exit 1; }
-}
-
 ID=$(id -u)
 WHO=$(whoami)
-REPO_SOURCE="/home/centos/Shell_Practice/mongo.repo"
-REPO_DEST="/etc/yum.repos.d/"
-MONGO_INSTALLED=$(rpm -qa | grep "mongodb-org" && echo "true" || echo "false")
-MONGO_INSTALLING="dnf install mongodb-org -y"
-MONGO_CONF="sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf"
+WORKING_DIR=$(pwd)
+DATE=$(date +"%Y%m%d_%H%M%S")
+LOG_FILE="/tmp/$0-${DATE}.log"
 
-validate $ID ":: YOU ARE USING ${WHO} USER SO YOU CANNOT EXECUTE THIS SCRIPT::"
-echo ":: YOU ARE A ${WHO} USER. YOU CAN EXECUTE THIS SCRIPT::"
-echo "SCRIPT EXECUTION WILL START NOW"
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
 
-[[ -e "${REPO_DEST}mongo.repo" ]] && echo "FILE ALREADY EXISTS IN ${REPO_DEST} SO, SKIPPING COPYING ::" || { cp "${REPO_SOURCE}" "${REPO_DEST}"; echo "IT IS A NEW FILE IN ${REPO_DEST} SO, COPYING TO DESTINATION PATH i.e ${REPO_DEST}  ::"; }
+validate(){
+    
+    if [ $1 -ne 0 ]; then
 
-[[ "${MONGO_INSTALLED}" == "true" ]] && echo "MONGO DB INSTALLED ALREADY:: SO SKIPPING INSTALLATION PART" || { echo ":: MONGO-DB IS INSTALLING ::"; ${MONGO_INSTALLING}; validate $? ":: MONGO-DB INSTALLATION FAILED ::"; echo "$?:: MONGO-DB IS INSTALLED ::"; systemctl enable mongod; validate $? ":: MONGO-DB ENABLING FAILED ::"; systemctl start mongod; validate $? ":: MONGO-DB STARTING FAILED ::"; }
+        echo -e "$2 ....${RED} FAILED ${ENDCOLOR}"
+        exit 1
+    else
 
-[[ $(grep -q "127.0.0.1" /etc/mongod.conf && echo "true" || echo "false") == "true" ]] && { echo "127.0.0.1 IS FOUND:: REPLACING WITH 0.0.0.0"; ${MONGO_CONF}; validate $? "SED command failed."; echo "SED command executed successfully."; systemctl restart mongod; } || echo "127.0.0.1 IS NOT FOUND:: REPLACING WITH 0.0.0.0 IS NOT POSSIBLE"
+        echo -e "$2 ....${GREEN} SUCCESS ${ENDCOLOR}"
+
+    fi    
+}
+
+if [ $ID -ne 0 ]; then
+
+    echo -e "${RED}PERMISSION DENIED ${ENDCOLOR} BECAUSE OF ${RED} ${WHO} ${ENDCOLOR} AND YOUR PRESENT WORKING DIRECTORY IS ${RED} ${WORKING_DIR}"
+    exit 1
+
+else
+
+    echo -e  "${GREEN}PREMSSION GRANTED ${ENDCOLOR} BECAUSE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
+
+fi
+
+if [ -e /home/centos/mongo.repo ]; then
+
+    echo "Mongo.repo Is existed"
+    cp -r mongo.repo /etc/yum.repo.d/
+    validate $? "mongo.repo copied"
+else
+
+    echo "File is not existed Please Created"
+
+fi    
