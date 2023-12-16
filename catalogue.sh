@@ -63,9 +63,9 @@ else
     
 fi   
 
-grep -r "catalogue.zip" /tmp
 
-if [ $? -eq 0 ]; then
+
+if [ -e /tmp/catalogue.zip -eq 0 ]; then
 
     echo " FRONT END ALREADY DOWNLOADED,SO SKIPPING DOWNLOADING PART"
 else
