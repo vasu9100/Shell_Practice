@@ -13,10 +13,10 @@ validate(){
     
     if [ $1 -ne 0 ]; then
 
-        echo "$2 ....${RED} FAILED"
+        echo -e "$2 ....${RED} FAILED"
     else
 
-        echo "$2 ....${GREEN}SUCCESS"
+        echo -e "$2 ....${GREEN} SUCCESS"
 
     fi    
 }
