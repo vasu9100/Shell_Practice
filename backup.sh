@@ -55,17 +55,16 @@ if [  $? -ne 0 ]; then
 
     curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
     validate $? "DOWNLOADED FRONT END CODE"
+    echo "Changing directory to /usr/share/nginx/html"
+    cd /usr/share/nginx/html
+    validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
+    rm -f *
+    validate $? "Removed"
+    unzip /tmp/web.zip
+    validate $? "UNZIP"
 else    
 
    echo "web.zip file already existed so no need to install"
 fi    
 
-echo "Changing directory to /usr/share/nginx/html"
-cd /usr/share/nginx/html
-validate $? "CHANGED DIRECTORY TO /usr/share/nginx/html"
 
-rm -f *
-validate $? "Removed"
-
-unzip /tmp/web.zip
-validate $? "UNZIP"
