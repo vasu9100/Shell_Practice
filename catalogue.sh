@@ -79,6 +79,8 @@ mkdir /app
 if [ $? -ne 0 ]; then
 
     echo "folder already existed"
+    cd /app
+    validate $? "SWITCHED INTO APP FOLDER"
 else
 
     echo "SWITCHING APP FOLDER"
