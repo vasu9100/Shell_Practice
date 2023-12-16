@@ -54,7 +54,10 @@ else
 
  echo "Mongo Db Is Not Installed SO Installing"
  dnf install mongodb-org -y
- validate $? "MONGO-DB-IS- INSTALLING"
-
+ validate $? "MONGO-DB-IS- INSTALLING" 
 fi
+systemctl enable mongod
+validate $? "MONGO-DB-IS-ENABLING"
 
+systemctl start mongod
+validate $? "MONGO-DB-IS-STARTING"
