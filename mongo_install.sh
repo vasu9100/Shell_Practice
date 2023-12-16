@@ -41,6 +41,20 @@ if [ -e /home/centos/mongo.repo ]; then
     validate $? "mongo.repo copied"
 else
 
-    echo "File is not existed Please Created"
+    echo "File is not existed Please Create"
 
-fi    
+fi
+
+dnf list installed | grep -q "mongodb-org"
+if [ $? -eq 0 ]; then
+
+    echo "Mongo-DB Is Already Installed so Skipping Installation"
+
+else
+
+ echo "Mongo Db Is Not Installed SO Installing"
+ dnf install mongodb-org -y
+ validate $? "MONGO-DB-IS- INSTALLING"
+
+fi
+
