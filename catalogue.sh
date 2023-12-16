@@ -105,9 +105,12 @@ else
     
 
 fi
-if [ -d "node_modules" ]; then
-    echo "Node modules already installed. Skipping npm install."
+if [ -d /app/node_modules ];then
+
+    echo "Libries already Installed"
 else
-    echo "Installing node modules..."
+
+    echo " installing libries"
     npm install
-fi
+    validate $? "Libries installation"
+fi    
