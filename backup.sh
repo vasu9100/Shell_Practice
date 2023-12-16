@@ -73,8 +73,21 @@ fi
 cd /home/centos/Shell_Practice
 validate $? "CHANGING DIRETORY TO ::/home/centos/Shell_Practice::"
 
-cp roboshop.conf /etc/nginx/default.d/
-validate $? "Copied roboshop.conf"
+#find /home/centos/Shell_Practice -name "roboshop.conf"
+
+if [ ! -e /home/centos/Shell_Practice/roboshop.conf ]; then
+
+    echo "File Not Existed"
+fi
+
+if [ -e /home/centos/Shell_Practice/roboshop.conf ] 
+  
+    echo "Started copying into destination"
+    cp -f roboshop.conf /etc/nginx/default.d/
+    validate $? "Copied roboshop.conf"
+fi
+
+else
 
 systemctl restart nginx
 validate $? "NGINX RESTARTED"
