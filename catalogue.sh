@@ -74,7 +74,7 @@ else
     validate $? "FRONT END DOWNLOADING"
 fi
 
-mkdir /app
+mkdir /app &>> ${LOG_FILE}
 
 if [ $? -ne 0 ]; then
 
@@ -89,3 +89,17 @@ else
 
 fi        
 
+if [ -e /tmp/catalogue.zip ]; then
+
+    echo " FRONT END ALREADY DOWNLOADED,SO SKIPPING DOWNLOADING PART"
+    echo "UNZIPPING PART STARTED"
+    unzip -o /tmp/catalogue.zip
+    validate $? "UNZIP"
+else
+
+    curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+    validate $? "FRONT END DOWNLOADING"
+    echo "UNZIPPING PART STARTED"
+    unzip -o /tmp/catalogue.zip
+    validate $? "UNZIP"
+fi
