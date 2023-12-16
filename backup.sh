@@ -35,11 +35,15 @@ dnf list installed | grep -q "nginx"
 validate $? "CHECKING NGINX STATUS"
 
 if [ $? -eq 0 ]; then
-    echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
+    echo -e "NGINX ALREADY ${GREEN} INSTALLED ${ENDCOLOR}, SO SKIPPING INSTALLATION"
     exit 1
 else
     yum install nginx -y
     validate $? "NGINX INSTALLATION"
 fi
    
+systemctl enable nginx
+validate $? "NGINX ENABLED"
 
+systemctl start nginx
+validate $? "NGINX START"
