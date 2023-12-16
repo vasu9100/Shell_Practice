@@ -63,7 +63,7 @@ else
     
 fi   
 
-grep -r "web.zip" /tmp
+grep -r "catalogue.zip" /tmp
 
 if [ $? -eq 0 ]; then
 
