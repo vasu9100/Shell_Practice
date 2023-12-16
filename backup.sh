@@ -7,7 +7,6 @@ WORKING_DIR=$(pwd)
 RED="\e[31m"
 GREEN="\e[32m"
 ENDCOLOR="\e[0m"
-NGINX_STATUS=$(dnf list installed | grep -q "nginx")
 
 validate(){
     
@@ -16,7 +15,7 @@ validate(){
         echo -e "$2 ....${RED} FAILED"
     else
 
-        echo -e "$2 ....${GREEN} SUCCES"
+        echo -e "$2 ....${GREEN} SUCCESS"
 
     fi    
 }
@@ -31,6 +30,9 @@ else
     echo -e  "${GREEN}PREMSSION GRANTED ${ENDCOLOR} BECAUSE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
 
 fi
+
+dnf list installed | grep -q "nginx"
+NGINX_STATUS=$?
 
 if [ ${NGINX_STATUS} -eq 0 ]; then
     echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
