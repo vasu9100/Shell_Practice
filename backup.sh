@@ -28,7 +28,7 @@ if [ $ID -ne 0 ]; then
 
 else
 
-    echo "${GREEN} PREMSSION GRANTED ${ENDCOLOR} BECAUSE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
+    echo -e  "${GREEN} PREMSSION GRANTED ${ENDCOLOR} BECAUSE YOUR ${GREEN} ${WHO} ${ENDCOLOR} USER"
 
 fi
 
@@ -43,7 +43,4 @@ else
     echo "NGINX ALREADY INSTALLED SO SKIPPING INSTALLATION"
 
 fi   
-
-
-    
 
