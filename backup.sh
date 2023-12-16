@@ -67,7 +67,7 @@ if [ -e /tmp/web.zip ]; then
     validate $? "UNZIP"
 else    
 
-   echo "web.zip file already existed so no need to install"
+   echo "${RED} web.zip file already existed so no need to install ${ENDCOLOR}"
 fi
 
 cd /home/centos/Shell_Practice
