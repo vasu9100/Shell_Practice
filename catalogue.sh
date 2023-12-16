@@ -49,4 +49,16 @@ else
     validate $? "NODEJS-18 VERSION ENABLED"
     dnf install nodejs -y
     validate $? "NODEJS-18 VERSION INSTALLATION"
+fi
+
+id roboshop &>> ${LOG_FILE}
+validate $? "Roboshop User Verification"
+
+if [ $? -eq 0 ]; then
+
+    echo "ROBO-SHOP-USER ALREADY EXISTED, SO SKIPPING USER CREATION"
+else
+
+    echo "ROBO-SHOP-USER IS CREATING"
+    useradd roboshop
 fi    
