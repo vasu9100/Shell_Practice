@@ -115,7 +115,7 @@ else
     validate $? "Libries installation"
 fi
 
-if [ -e /home/centos/catalogue.service ];then
+if [ -e /home/centos/Shell_Practice/catalogue.service ];then
 
     echo "catalogue File Existed"
     cp -r /home/centos//Shell_Practice/catalogue.service /etc/systemd/system/
