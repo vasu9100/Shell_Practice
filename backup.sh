@@ -32,9 +32,9 @@ else
 fi
 
 dnf list installed | grep -q "nginx"
-NGINX_STATUS=$?
+validate $? "CHECKING NGINX STATUS"
 
-if [ ${NGINX_STATUS} -eq 0 ]; then
+if [ $? -eq 0 ]; then
     echo "NGINX ALREADY INSTALLED, SO SKIPPING INSTALLATION"
     exit 1
 else
