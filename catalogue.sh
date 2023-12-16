@@ -124,3 +124,12 @@ else
 
     echo "FILE NOT EXISTED"
 fi
+
+systemctl daemon-reload
+validate $? "DAEMON REALOADED"
+
+systemctl enable catalogue
+validate $? "ENABLED CATALOGUE"
+
+systemctl start catalogue
+validate $? "STARTED CATALOGUE"
