@@ -48,8 +48,8 @@ validate $? "NGINX ENABLED"
 systemctl start nginx
 validate $? "NGINX START"
 
- find /tmp/ -name "web.zip"
- validate $? "Web.zip Verification"
+find /tmp/ -name "web.zip"
+validate $? "Web.zip Verification"
 
 if [  $? -ne 0 ]; then
 
@@ -66,5 +66,4 @@ else
 
    echo "web.zip file already existed so no need to install"
 fi    
-
 
