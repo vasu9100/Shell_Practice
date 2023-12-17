@@ -56,10 +56,15 @@ validate $? "NGINX START"
 #find /tmp/ -name "web.zip"
 #validate $? "Web.zip Verification"
 
-if [ ! -e /tmp/web.zip ]; then
+if [ -e /tmp/web.zip ]; then
 
     curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
     validate $? "DOWNLOADED FRONT END CODE"
+else
+     
+
+   echo "${RED} web.zip file already existed so no need to install ${ENDCOLOR}"
+
 fi
 
 echo "Changing directory to /usr/share/nginx/html"
@@ -76,9 +81,12 @@ if [ -e /tmp/web.zip ]; then
     echo "web.zp Already existed so unzipping"
     unzip -o /tmp/web.zip &>>${LOG_FILE}
     validate $? "UNZIP"
-else    
 
-   echo "${RED} web.zip file already existed so no need to install ${ENDCOLOR}"
+else
+
+    echo "UNZIP NOT DONE"
+    exit 1
+
 fi
 
 cd /home/centos/Shell_Practice
@@ -93,7 +101,7 @@ if [ -e /home/centos/Shell_Practice/roboshop.conf ]; then
     validate $? "Copied roboshop.conf"
 else
 
-    echo "FILE NOT EXISTED"
+    echo "ROBO.CONF-FILE NOT EXISTED"
     exit 1
 fi
  
