@@ -125,10 +125,10 @@ fi
 systemctl daemon-reload
 validate $? "DAEMON REALOADED"
 
-systemctl enable catalogue
+systemctl enable user
 validate $? "ENABLED CATALOGUE"
 
-systemctl start catalogue
+systemctl start user
 validate $? "STARTED CATALOGUE"
 
 if [ -e /home/centos/Shell_Practice/mongo.repo ];then
