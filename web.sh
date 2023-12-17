@@ -57,13 +57,14 @@ validate $? "NGINX START"
 #validate $? "Web.zip Verification"
 
 if [ -e /tmp/web.zip ]; then
-
-    curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
-    validate $? "DOWNLOADED FRONT END CODE"
+  
+  echo "web.zip Already There"
+    
 else
      
 
-   echo "${RED} web.zip file already existed so no need to install ${ENDCOLOR}"
+   curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
+   validate $? "DOWNLOADED FRONT END CODE"
 
 fi
 
