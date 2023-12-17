@@ -17,6 +17,7 @@ validate(){
     if [ $1 -ne 0 ]; then
 
         echo -e "$2 ....${RED} FAILED ${ENDCOLOR}"
+        exit 1
 
     else
 
@@ -36,10 +37,10 @@ else
 
 fi
 
-dnf list installed | grep -q "nginx" 
-validate $? "CHECKING NGINX STATUS"
+ 
 
-if [ $? -eq 0 ]; then
+
+if [ dnf list installed | grep -q "nginx" ]; then
     echo -e "NGINX ALREADY ${GREEN} INSTALLED ${ENDCOLOR}, SO SKIPPING INSTALLATION"
 else
     yum install nginx -y
