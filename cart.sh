@@ -70,7 +70,7 @@ if [ -e /tmp/cart.zip ]; then
     echo " FRONT END USER CODE ALREADY DOWNLOADED,SO SKIPPING DOWNLOADING PART"
 else
 
-    curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/cart.zip
+    curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip
     validate $? "FRONT END USER API CODE DOWNLOADING"
 fi
 
