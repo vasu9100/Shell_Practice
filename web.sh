@@ -86,16 +86,15 @@ validate $? "CHANGING DIRETORY TO ::/home/centos/Shell_Practice::"
 
 #find /home/centos/Shell_Practice -name "roboshop.conf"
 
-if [ ! -e /home/centos/Shell_Practice/roboshop.conf ]; then
-
-    echo "File is existed start to copying"
-fi
-
 if [ -e /home/centos/Shell_Practice/roboshop.conf ]; then
-  
-    echo "Started copying into destination"
+
+    echo "File is existed start to copying"echo "Started copying into destination"
     cp -f roboshop.conf /etc/nginx/default.d/
     validate $? "Copied roboshop.conf"
-fi 
+else
+
+    echo "FILE NOT EXISTED"
+fi
+ 
 systemctl restart nginx
 validate $? "NGINX RESTARTED"
