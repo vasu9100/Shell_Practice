@@ -115,7 +115,7 @@ fi
 if [ -e /home/centos/Shell_Practice/cart.service ];then
 
     echo "catalogue File Existed"
-    cp -r /home/centos//Shell_Practice/user.service /etc/systemd/system/
+    cp -r /home/centos//Shell_Practice/cart.service /etc/systemd/system/
     validate $? "COPIED SUCCESSFULLY"
 else
 
