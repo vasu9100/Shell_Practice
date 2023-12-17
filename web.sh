@@ -94,6 +94,7 @@ if [ -e /home/centos/Shell_Practice/roboshop.conf ]; then
 else
 
     echo "FILE NOT EXISTED"
+    exit 1
 fi
  
 systemctl restart nginx
