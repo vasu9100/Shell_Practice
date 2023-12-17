@@ -61,10 +61,10 @@ else
     sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf
 
 fi  
-netstat -lntp
-validate $? "SHOWING PORTS"
 systemctl enable redis
 validate $? "REDIS ENABLING"
 systemctl start redis
 validate $? "REDIS STARTED"
+netstat -lntp
+validate $? "SHOWING PORTS"
 
