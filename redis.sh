@@ -65,6 +65,8 @@ systemctl enable redis
 validate $? "REDIS ENABLING"
 systemctl start redis
 validate $? "REDIS STARTED"
+systemctl restart redis
+validate $? "REDIS STARTED"
 netstat -lntp
 validate $? "SHOWING PORTS"
 
