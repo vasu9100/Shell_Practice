@@ -34,10 +34,9 @@ else
 
 fi
 
-
+echo "Node Js status checking"
 which node &>> $LOG_FILE
 
-echo "Node JS Status Checking"
 
 
 if [ $? -eq 0 ]; then
