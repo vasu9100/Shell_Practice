@@ -98,7 +98,7 @@ validate $? "CHANGING DIRETORY TO ::/home/centos/Shell_Practice::"
 if [ -e /home/centos/Shell_Practice/roboshop.conf ]; then
 
     echo "File is existed start to copying"echo "Started copying into destination"
-    cp -f roboshop.conf /etc/nginx/default.d/
+    cp -f /home/centos/Shell_Practice/roboshop.conf /etc/nginx/default.d/
     validate $? "Copied roboshop.conf"
 else
 
