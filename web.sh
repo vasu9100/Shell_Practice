@@ -40,7 +40,7 @@ fi
  
 
 
-if [ dnf list installed | grep -q "nginx" ]; then
+if dnf list installed | grep -q "nginx" ; then
     echo -e "NGINX ALREADY ${GREEN} INSTALLED ${ENDCOLOR}, SO SKIPPING INSTALLATION"
 else
     yum install nginx -y
