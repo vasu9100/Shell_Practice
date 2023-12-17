@@ -138,7 +138,7 @@ validate $? "STARTED CATALOGUE"
 
 if [ -e /home/centos/Shell_Practice/mongo.repo ];then
 
-    echo "catalogue File Existed"
+    echo "mongo File Existed"
     cp -r /home/centos//Shell_Practice/mongo.repo /etc/yum.repos.d/
     validate $? "COPIED SUCCESSFULLY"
 else
