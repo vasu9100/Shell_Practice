@@ -34,7 +34,7 @@ else
 
 fi
 
-if [ -e /home/centos/mongo.repo ]; then
+if [ -e /home/centos/Shell_Practice/mongo.repo ]; then
 
     echo "Mongo.repo FILE  Is existed"
     cp -r /home/centos/mongo.repo /etc/yum.repos.d/
