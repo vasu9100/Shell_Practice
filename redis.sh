@@ -59,10 +59,10 @@ else
     validate $? "REDIS INSTALLATION PART" 
     echo "SCRIPT STARTS ADDING BINDING OPERATION"
     sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf
-    netstat -lntp
-    validate $? "SHOWING PORTS"
 
 fi  
+netstat -lntp
+validate $? "SHOWING PORTS"
 systemctl enable redis
 validate $? "REDIS ENABLING"
 systemctl start redis
