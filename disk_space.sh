@@ -9,6 +9,10 @@ process_disk_space() {
     echo "Filesystem: $filesystem, Usage: $usage_percentage"
 }
 
+# Create a temporary file to store the output of df -h
+temp_file=$(mktemp)
+df -h > "$temp_file"
+
 # Main script
 while IFS= read -r line; do
     # Skip the header line (assuming the first line is a header)
@@ -22,4 +26,7 @@ while IFS= read -r line; do
 
     # Process disk space information
     process_disk_space "$filesystem" "$usage_percentage"
-done < <(df -h)
+done < "$temp_file"
+
+# Remove the temporary file
+rm "$temp_file"
